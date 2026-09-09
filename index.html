@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="regular">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nocturne &mdash; Art Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-text">
+      <p class="eyebrow-line">portfolio</p>
+      <h1 class="artist-name">Nocturne<span class="dot">.</span></h1>
+      <p class="tagline">Paintings made to be seen three different ways.</p>
+    </div>
+
+    <div class="switch-plate" role="radiogroup" aria-label="Gallery lighting">
+      <button class="rocker" data-mode="regular" role="radio" aria-checked="true">
+        <span class="led"></span>
+        <span class="rocker-label">Daylight</span>
+      </button>
+      <button class="rocker" data-mode="blacklight" role="radio" aria-checked="false">
+        <span class="led"></span>
+        <span class="rocker-label">Blacklight</span>
+      </button>
+      <button class="rocker" data-mode="nolight" role="radio" aria-checked="false">
+        <span class="led"></span>
+        <span class="rocker-label">No Light</span>
+      </button>
+    </div>
+  </header>
+
+  <p class="mode-caption" id="mode-caption">Viewing under regular gallery light.</p>
+
+  <main class="gallery" id="gallery">
+    <!-- artwork cards are injected by script.js from the ARTWORKS array -->
+  </main>
+
+  <footer class="site-footer">
+    <p>Replace the pieces in <code>script.js</code> with your own work &mdash; see the README for instructions.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

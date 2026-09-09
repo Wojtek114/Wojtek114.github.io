@@ -1,0 +1,330 @@
+/* -------------------------------------------------------
+   Tokens — one set of variables per lighting mode
+------------------------------------------------------- */
+
+:root {
+  --font-display: "Fraunces", serif;
+  --font-body: "Manrope", sans-serif;
+}
+
+html[data-mode="regular"] {
+  --bg: #E7E4DC;
+  --surface: #F4F2EC;
+  --ink: #17161A;
+  --muted: #6B6659;
+  --line: #CFC9BA;
+  --accent: #34407A;
+  --accent-2: #B8862E;
+  --card-shadow: 0 1px 0 rgba(23, 22, 26, 0.08);
+  --caption-glow: none;
+}
+
+html[data-mode="blacklight"] {
+  --bg: #08021A;
+  --surface: #12073040;
+  --ink: #ECE3FF;
+  --muted: #9C87D6;
+  --line: #3C1F73;
+  --accent: #FF3EC9;
+  --accent-2: #37F0FF;
+  --card-shadow: 0 0 26px rgba(255, 62, 201, 0.18);
+  --caption-glow: 0 0 12px rgba(55, 240, 255, 0.55);
+}
+
+html[data-mode="nolight"] {
+  --bg: #000000;
+  --surface: #030303;
+  --ink: #3E5C43;
+  --muted: #274430;
+  --line: #0E140F;
+  --accent: #4CFF7A;
+  --accent-2: #4CFF7A;
+  --card-shadow: none;
+  --caption-glow: 0 0 8px rgba(76, 255, 122, 0.65);
+}
+
+/* -------------------------------------------------------
+   Base
+------------------------------------------------------- */
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  transition: background-color 0.7s ease, color 0.7s ease;
+  min-height: 100vh;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* -------------------------------------------------------
+   Header
+------------------------------------------------------- */
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 28px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 56px 32px 36px;
+}
+
+.eyebrow-line {
+  margin: 0 0 6px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  transition: color 0.7s ease;
+}
+
+.artist-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: clamp(40px, 6vw, 68px);
+  line-height: 1;
+  color: var(--ink);
+  transition: color 0.7s ease, text-shadow 0.7s ease;
+  text-shadow: var(--caption-glow);
+}
+
+.artist-name .dot {
+  color: var(--accent);
+  transition: color 0.7s ease;
+}
+
+.tagline {
+  margin: 14px 0 0;
+  max-width: 34ch;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.5;
+  transition: color 0.7s ease;
+}
+
+/* -------------------------------------------------------
+   Switch plate — three physical rocker switches
+------------------------------------------------------- */
+
+.switch-plate {
+  display: flex;
+  gap: 2px;
+  padding: 10px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  transition: background-color 0.7s ease, border-color 0.7s ease;
+}
+
+.rocker {
+  appearance: none;
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 7px;
+  cursor: pointer;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  transition: color 0.4s ease, background-color 0.4s ease;
+}
+
+.rocker:hover {
+  background: color-mix(in srgb, var(--line) 40%, transparent);
+}
+
+.rocker:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.led {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--line);
+  box-shadow: none;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.rocker[aria-checked="true"] {
+  color: var(--ink);
+}
+
+.rocker[aria-checked="true"] .led {
+  background: var(--accent);
+  box-shadow: 0 0 10px 2px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+/* -------------------------------------------------------
+   Mode caption
+------------------------------------------------------- */
+
+.mode-caption {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 32px 28px;
+  font-size: 13px;
+  color: var(--muted);
+  transition: color 0.7s ease;
+}
+
+/* -------------------------------------------------------
+   Gallery grid
+------------------------------------------------------- */
+
+.gallery {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 32px 80px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+@media (max-width: 900px) {
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .gallery { grid-template-columns: 1fr; }
+}
+
+.artwork {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--surface);
+  box-shadow: var(--card-shadow);
+  transition: box-shadow 0.7s ease, background-color 0.7s ease;
+}
+
+.artwork img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: var(--img-filter, none);
+  transform: scale(1.001); /* avoids seam artifacts on filter transitions */
+  transition: filter 0.7s ease, opacity 0.7s ease, transform 0.4s ease;
+}
+
+/* per-mode default look, used only when a piece has no dedicated
+   alternate image for that mode (see script.js: FALLBACK_FILTERS) */
+html[data-mode="regular"] .artwork img[data-using-fallback] { --img-filter: none; }
+
+html[data-mode="blacklight"] .artwork img[data-using-fallback] {
+  --img-filter: saturate(2.4) contrast(1.25) brightness(0.85) hue-rotate(220deg);
+}
+
+html[data-mode="nolight"] .artwork img[data-using-fallback] {
+  --img-filter: brightness(0.05) contrast(1.6) saturate(0.6);
+}
+
+html[data-mode="nolight"] .artwork {
+  box-shadow: inset 0 0 0 1px rgba(76, 255, 122, 0.12);
+}
+
+html[data-mode="nolight"] .artwork::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 40px rgba(76, 255, 122, 0.06);
+  pointer-events: none;
+}
+
+.artwork:hover img {
+  transform: scale(1.04);
+}
+
+/* description overlay, revealed on hover / focus */
+
+.artwork-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 18px 18px 16px;
+  background: linear-gradient(to top, color-mix(in srgb, var(--bg) 88%, transparent) 0%, transparent 100%);
+  color: var(--ink);
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.35s ease, opacity 0.35s ease, color 0.7s ease;
+}
+
+.artwork:hover .artwork-caption,
+.artwork:focus-within .artwork-caption {
+  transform: translateY(0%);
+  opacity: 1;
+}
+
+.artwork-caption h2 {
+  margin: 0 0 2px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 19px;
+  text-shadow: var(--caption-glow);
+}
+
+.artwork-caption .meta {
+  margin: 0 0 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.artwork-caption p.blurb {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  max-width: 46ch;
+}
+
+.artwork:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* -------------------------------------------------------
+   Footer
+------------------------------------------------------- */
+
+.site-footer {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 20px 32px 60px;
+  color: var(--muted);
+  font-size: 12px;
+  transition: color 0.7s ease;
+}
+
+.site-footer code {
+  color: var(--ink);
+  transition: color 0.7s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
